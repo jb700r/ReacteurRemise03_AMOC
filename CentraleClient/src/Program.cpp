@@ -6,7 +6,7 @@
 Program::Program()
 : m_client(nullptr), m_timer(nullptr)
 {
-    connexionReseau();
+    connexionReseau(WIFI_SSID, WIFI_PASSWORD);
     m_client = new ClientCentrale();
     m_timer = new Timer(2_secondes, [this](){
         this->m_client->interrogerCoeur();
@@ -15,12 +15,12 @@ Program::Program()
     
 }
 
-void Program::connexionReseau()
+void Program::connexionReseau(String ssid, String password)
 {
     const uint8_t nbEssaisMaximum = 30;
     uint8_t nbEssais = 0;
 
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    WiFi.begin(ssid.c_str(), password.c_str());
 
     Serial.print("Connexion : ");
     while (nbEssais < nbEssaisMaximum && WiFi.status() != WL_CONNECTED)
@@ -37,7 +37,13 @@ void Program::connexionReseau()
         Serial.println(WiFi.localIP());
         Serial.println("");
     }
+    else{
+        Serial.println("Impossible de se connecter au réseau WiFi");
+        Serial.println("Connexion au point d'acces");
+        connexionReseau(WIFI_SSID_ACCESS_POINT, WIFI_PASSWORD_ACCESS_POINT);
+    }
 }
+
 
 
 void Program::loop()

@@ -10,7 +10,7 @@ public:
     void loop();
 
 private:
-    void connexionReseau();
+    void connexionReseau(String ssid, String password);
     ClientCentrale *m_client;
     Timer* m_timer;
     Bouton* m_bouton;
