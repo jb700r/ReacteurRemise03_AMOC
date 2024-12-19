@@ -6,6 +6,5 @@ ActionBoutonPressee::ActionBoutonPressee(ClientCentrale *p_client)
 }
 void ActionBoutonPressee::executer()
 {
-    Serial.println("Bouton pressé");
     this->m_client->ChangerEtatReacteur();
 }
