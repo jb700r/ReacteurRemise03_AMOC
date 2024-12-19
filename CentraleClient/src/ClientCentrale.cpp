@@ -13,14 +13,11 @@ ClientCentrale::ClientCentrale()
 
 void ClientCentrale::interrogerCoeur()
 {
-    Serial.println("Interrogation du coeur");
-
     HTTPClient http;
     http.begin(SERVER_URL);
     int httpReponse = http.GET();
 
     String reponse = http.getString();
-    Serial.println(reponse);
 
     DynamicJsonDocument doc(1024);
     deserializeJson(doc, reponse);
@@ -61,7 +58,6 @@ void ClientCentrale::ChangerEtatReacteur()
 
 void ClientCentrale::gestionDEL(String etat)
 {
-    Serial.println(etat);
     if (etat == "actif")
     {
         m_delRouge->allumer();

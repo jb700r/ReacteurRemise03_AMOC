@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include "Timer.h"
 #include "Board/Bouton.h"
+#include "Logger/SpecificCommandInterpretor.h"
 
 class Program{
 public:
@@ -14,4 +15,5 @@ private:
     ClientCentrale *m_client;
     Timer* m_timer;
     Bouton* m_bouton;
+    SpecificCommandInterpretor* m_specificCommandInterpretor;
 };

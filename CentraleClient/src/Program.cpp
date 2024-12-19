@@ -4,7 +4,7 @@
 #include <WiFi.h>
 
 Program::Program()
-: m_client(nullptr), m_timer(nullptr)
+: m_client(nullptr), m_timer(nullptr),m_specificCommandInterpretor(nullptr), m_bouton(nullptr)
 {
     connexionReseau(WIFI_SSID, WIFI_PASSWORD);
     m_client = new ClientCentrale();
@@ -12,7 +12,7 @@ Program::Program()
         this->m_client->interrogerCoeur();
     });
     m_bouton = new Bouton(PIN_BOUTON, new ActionBoutonPressee(m_client));
-    
+    m_specificCommandInterpretor = new SpecificCommandInterpretor(Serial,m_client);
 }
 
 void Program::connexionReseau(String ssid, String password)
@@ -50,4 +50,5 @@ void Program::loop()
 {
     m_timer->tick();
     m_bouton->tick();
+    m_specificCommandInterpretor->tick();
 }
